@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: mvn install -DskipTests -DskipITs -Ddocker.skip
+  test:
+    machine: true
+    steps:
+      - checkout
+      - run: mvn verify -P circle
+  deploy:
+    machine: true
+    steps:
+      - checkout
+      - run: if [ -z "${CI_PULL_REQUEST}" ]; then PGP_RINGS="$(echo ${PGP_RINGS_ENCODED} | base64 --decode)" mvn deploy -P deploy -s settings.xml; fi
+workflows:
+  version: 2
+  test-and-deploy:
+    jobs:
+      - build
+      - test
+      - deploy:
+          filters:
+            branches:
+              only: master
