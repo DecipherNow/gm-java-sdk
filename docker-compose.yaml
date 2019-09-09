@@ -1,0 +1,206 @@
+version: '3'
+services:
+
+  edge:
+    networks:
+      - mesh
+    image: deciphernow/gm-proxy:0.7.2
+    environment:
+      - PORT=8080
+      - PROXY_DYNAMIC=true
+      - XDS_CLUSTER=region-1
+      - XDS_HOST=gm-xds
+      - XDS_PORT=18000
+      - ZK_ANNOUNCE_PATH=/services/edge/1.0
+      - ZK_ADDRS=kafka:2181
+      - SERVICE_PORT=8080
+      - INHEADERS_ENABLED=true
+      - INGRESS_USE_TLS=true
+      - INGRESS_CA_CERT_PATH=./certs/intermediate.crt
+      - INGRESS_CERT_PATH=./certs/localhost.crt
+      - INGRESS_KEY_PATH=./certs/localhost.key
+      - TIMEOUT=30000s
+      - IDLE_TIMEOUT=30s
+      - DRAIN_TIMEOUT=30s
+    ports:
+      - 9443:8080
+      - 8001:8001
+    depends_on:
+      - kafka
+    volumes:
+      - ./gmDataDocker/edgeCerts:/app/certs
+
+  gm-xds:
+    networks:
+      - mesh
+    image: deciphernow/gm-xds:latest
+    ports:
+      - "18000:18000"
+      - "18001:18001"
+      - "18003:18003"
+      - "18090:18090"
+      - "9000:9000"
+    environment:
+      - ZK_DISCOVER=true
+      - ZK_SERVERS=kafka:2181
+      - ZK_BASE_PATH=/services
+      - LOG_LEVEL=debug
+    depends_on:
+      - kafka
+
+  kafka:
+    networks:
+      - mesh
+    image: deciphernow/kafka:2.11-0.10.0.0
+    hostname: kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+      - "2181:2181"
+    environment:
+      - KAFKA_CREATE_TOPICS=example-service-event:1:1
+
+  gmdatax-proxy:
+    networks:
+      - mesh
+    image: deciphernow/gm-proxy:0.7.2
+    ports:
+      - 8080:8080
+      - 7001:8001
+    environment:
+      - PORT=8080
+      - PROXY_DYNAMIC=true
+      - XDS_CLUSTER=region-1
+      - XDS_HOST=gm-xds
+      - XDS_PORT=18000
+      - ZK_ANNOUNCE_PATH=/services/gm-data/1.0
+      - ZK_ADDRS=kafka:2181
+      - EMIT_EVENTS=true
+      - SERVICE_PORT=8181
+      - SERVICE_HOST=gmdatax
+      - TIMEOUT=30000s
+      - IDLE_TIMEOUT=30sF
+      - DRAIN_TIMEOUT=30s
+    volumes:
+      - ./gmDataDocker/edgeCerts:/app/certs
+    depends_on:
+      - gm-xds
+
+  gmdatax:
+    networks:
+      mesh:
+        aliases:
+          - gmdatax
+    image: deciphernow/gm-data:0.2.3
+    ports:
+      - "8181:8181"
+      - "6060:6060"
+    depends_on:
+      - mongo
+      - kafka
+      - jwt-server-proxy
+    environment:
+      - GMDATA_USE_TLS=false
+      - CLIENT_JWT_PREFIX=/services/gm-jwt-security/1.0
+      - CLIENT_JWT_ENDPOINT_ADDRESS=jwt-server-proxy
+      - CLIENT_JWT_ENDPOINT_PORT=8080
+      - CLIENT_JWT_ENDPOINT_USE_TLS=false
+      - JWT_PUB=LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlHYk1CQUdCeXFHU000OUFnRUdCU3VCQkFBakE0R0dBQVFCV2RLZ0J0NG4zYlkxTDR1SU5LMDh6VHFKK25lRgp3YnBhT1dVWURCZUtsRk9DeHljSVJVMXVrVmhoK3lwa1FZL0RsWTk2RVZObE5OUE42R2hKaktHTURTMEJxYnB3ClQyZ3ZiOWJhNHJReWpZTXNTL3E4WkNjdzR5TjVWU0xIOG5ydkM5ZVpTajBDVlFlMGdaY2ZKZFZuVC9oRGp1YW0KQmN3MEZSVk56WmxPdmJNdUZPZz0KLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg==
+      - GMDATAX_SESSION_MAX=10000
+      - LESS_CHATTY_INFO=true
+      - GMDATAX_CATCH_PANIC=true
+      - KAFKA_PEERS=kafka:9092
+      - KAFKA_TOPIC_UPDATE=gmdatax-update
+      - KAFKA_TOPIC_READ=gmdatax-read
+      - KAFKA_TOPIC_ERROR=gmdatax-error
+      - MASTERKEY=foo
+      - HTTP_CACHE_SECONDS=10
+      - USEIPFS=false
+      - USES3=false
+      - JWT_API_KEY=Zm9vCg==
+      - MONGOHOST=mongo:27017
+      - MONGODB=gmdatax
+      - MONGO_USE_TLS=false
+      - AWS_S3_BUCKET=decipherers
+      - AWS_S3_PARTITION=test
+      - GMDATA_NAMESPACE=world
+      - GMDATA_NAMESPACE_USERFIELD=email
+    volumes:
+      - ./gmDataDocker/data/buckets/decipherer/test/:/buckets/decipherer/test
+
+  mongo:
+    networks:
+      - mesh
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
+    image: mongo:3.6
+    ports:
+      - 27017:27017
+
+  jwt-server-proxy:
+    networks:
+      - mesh
+    image: deciphernow/gm-proxy:0.7.2
+    ports:
+      - 7090:8080
+      - 7011:8001
+    environment:
+      - PORT=8080
+      - PROXY_DYNAMIC=true
+      - XDS_CLUSTER=region-1
+      - XDS_HOST=gm-xds
+      - XDS_PORT=18000
+      - ZK_ANNOUNCE_PATH=/services/gm-jwt-security/1.0
+      - ZK_ADDRS=kafka:2181
+      - EMIT_EVENTS=true
+      - SERVICE_PORT=8090
+      - SERVICE_HOST=jwt-server
+    volumes:
+      - ./gmDataDocker/edgeCerts:/app/certs
+    depends_on:
+      - gm-xds
+
+  jwt-server:
+    networks:
+      - mesh
+    depends_on:
+      - redis
+    image: deciphernow/gm-jwt-security:latest
+    environment:
+      - DONT_PANIC=true
+      - USERS_JSON
+      - PRIVATE_KEY=LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1JSGNBZ0VCQkVJQmlOM0FBM1RFd0p5WTNMMnF5bXAvajlrY280b3hsbmhHMFhYcmk5dG9RVGh2MC9rRHROSUIKY1Iram81MTRZU0FueUpUS3VxT09KRDR5MDFIU1duZUQ3SjZnQndZRks0RUVBQ09oZ1lrRGdZWUFCQUZaMHFBRwozaWZkdGpVdmk0ZzByVHpOT29uNmQ0WEJ1bG81WlJnTUY0cVVVNExISndoRlRXNlJXR0g3S21SQmo4T1ZqM29SClUyVTAwODNvYUVtTW9Zd05MUUdwdW5CUGFDOXYxdHJpdERLTmd5eEwrcnhrSnpEakkzbFZJc2Z5ZXU4TDE1bEsKUFFKVkI3U0JseDhsMVdkUCtFT081cVlGekRRVkZVM05tVTY5c3k0VTZBPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
+      - HTTP_PORT=8090
+      - TOKEN_EXP_TIME
+      - REDIS_HOST=redis
+      - REDIS_PORT
+      - REDIS_DB
+      - REDIS_PASS=password123
+      - JWT_API_KEY=Zm9vCg==
+      - ENABLE_TLS=false
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./gmDataDocker/users.json:/gm-jwt-security/etc/users.json
+
+  es:
+    networks:
+      - mesh
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+  redis:
+    networks:
+      - mesh
+    image: redis
+    environment:
+      - REDIS_PASS
+    command: redis-server --requirepass password123
+
+networks:
+  mesh: {}

@@ -1,0 +1,26 @@
+{
+    "users": [
+        {
+            "label": "CN=localuser,OU=Engineering,O=Decipher Technology Studios,=Alexandria,=Virginia,C=US",
+            "values": {
+                "email": ["engineering@deciphernow.com"],
+                "org": ["www.deciphernow.com", "ieee"],
+                "privilege": ["root", "readonly"],
+                "projects": ["gmdatax", "jwt-server"],
+                "citizenship": ["US"],
+                "age": ["adult"]
+            }
+        },
+        {
+          "label": "CN=localhost,OU=Engineering,O=Decipher Technology Studios,=Alexandria,=Virginia,C=US",
+          "values": {
+            "email": ["engineering@deciphernow.com"],
+            "org": ["www.deciphernow.com", "ieee"],
+            "privilege": ["root", "readonly"],
+            "projects": ["gmdatax", "jwt-server"],
+            "citizenship": ["US"],
+            "age": ["adult"]
+          }
+        }
+    ]
+}
