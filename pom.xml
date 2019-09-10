@@ -11,8 +11,8 @@
     <description>Grey Matter Data SDK</description>
     <packaging>jar</packaging>
     <scm>
-        <connection>scm:git:git@github.com:deciphernow/gm-gm-java-sdk.gitt</connection>
-        <developerConnection>scm:git:git@github.com:deciphernow/gm-java-sdk.gitt</developerConnection>
+        <connection>scm:git:git@github.com:deciphernow/gm-gm-java-sdk.git</connection>
+        <developerConnection>scm:git:git@github.com:deciphernow/gm-java-sdk.git</developerConnection>
         <url>https://github.com/deciphernow/gm-java-sdk</url>
     </scm>
     <distributionManagement>
