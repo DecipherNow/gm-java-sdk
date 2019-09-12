@@ -16,7 +16,6 @@ jobs:
             - cache-{{ .Branch }}-{{ .Revision }}
             - cache-{{ .Branch }}
             - cache
-      - run: mvn clean
       - run: mvn dependency:go-offline
       - save_cache:
           key: cache-{{ .Branch }}-{{ .Revision }}
@@ -31,7 +30,7 @@ jobs:
             - cache-{{ .Branch }}-{{ .Revision }}
             - cache-{{ .Branch }}
             - cache
-      - run: mvn verify
+      - run: mvn verify -DskipTests=true
   deploy:
     <<: *defaults
     steps:
