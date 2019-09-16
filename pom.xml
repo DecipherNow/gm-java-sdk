@@ -211,6 +211,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
+                    <skipTests>true</skipTests>
                     <argLine>-Djavax.net.debug=all</argLine>
                 </configuration>
             </plugin>
