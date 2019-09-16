@@ -11,7 +11,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - rum: mvn -version
+      - run: mvn -version
       - run: rm -rf ~/.m2
       - restore_cache:
           keys:
