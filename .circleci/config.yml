@@ -5,6 +5,7 @@ defaults: &defaults
   working_directory: ~/deciphernow/gm-data-sdk
   parallelism: 1
   shell: /bin/bash --login
+  run: mvn -version
 
 jobs:
   cache:
@@ -13,12 +14,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-{{ .Branch }}-{{ .Revision }}
+            - cache-{{ .Branch }}-{{ .Revision }}-{{ checksum "pom.xml" }}
             - cache-{{ .Branch }}
             - cache
       - run: mvn dependency:go-offline
       - save_cache:
-          key: cache-{{ .Branch }}-{{ .Revision }}
+          key: cache-{{ .Branch }}-{{ .Revision }}-{{ checksum "pom.xml" }}
           paths:
             - "~/.m2"
   build:
@@ -27,7 +28,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-{{ .Branch }}-{{ .Revision }}
+            - cache-{{ .Branch }}-{{ .Revision }}-{{ checksum "pom.xml" }}
             - cache-{{ .Branch }}
             - cache
       - run: mvn verify -DskipTests=true
