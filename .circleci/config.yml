@@ -4,13 +4,14 @@ defaults: &defaults
   machine: true
   working_directory: ~/deciphernow/gm-data-sdk
   parallelism: 1
-  shell: /bin/bash --login && mvn -version
+  shell: /bin/bash --login
 
 jobs:
   cache:
     <<: *defaults
     steps:
       - checkout
+      - rum: mvn -version
       - run: rm -rf ~/.m2
       - restore_cache:
           keys:
