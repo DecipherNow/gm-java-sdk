@@ -4,7 +4,9 @@ defaults: &defaults
   machine: true
   working_directory: ~/deciphernow/gm-data-sdk
   parallelism: 1
-  shell: /bin/bash --login
+#  shell: /bin/bash --login
+  docker:
+    - image: circleci/openjdk:8-jdk-stretch
 
 jobs:
   cache:
@@ -15,8 +17,8 @@ jobs:
       - restore_cache:
           keys:
             - cache-{{ .Branch }}-{{ .Revision }}-{{ checksum "pom.xml" }}
-            - cache-{{ .Branch }}
-            - cache
+            - cache-{{ .Branch }}-{{ checksum "pom.xml" }}
+            - cache-{{ checksum "pom.xml" }}
       - run: mvn dependency:go-offline
       - save_cache:
           key: cache-{{ .Branch }}-{{ .Revision }}-{{ checksum "pom.xml" }}
@@ -29,8 +31,8 @@ jobs:
       - restore_cache:
           keys:
             - cache-{{ .Branch }}-{{ .Revision }}-{{ checksum "pom.xml" }}
-            - cache-{{ .Branch }}
-            - cache
+            - cache-{{ .Branch }}-{{ checksum "pom.xml" }}
+            - cache-{{ checksum "pom.xml" }}
       - run: mvn verify -DskipTests=true
   deploy:
     <<: *defaults
@@ -38,9 +40,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-{{ .Branch }}-{{ .Revision }}
-            - cache-{{ .Branch }}
-            - cache
+            - cache-{{ .Branch }}-{{ .Revision }}-{{ checksum "pom.xml" }}
+            - cache-{{ .Branch }}-{{ checksum "pom.xml" }}
+            - cache-{{ checksum "pom.xml" }}
       - run: PGP_RINGS="$(echo ${PGP_RINGS_ENCODED} | base64 --decode)" mvn deploy -P deploy -s settings.xml
 workflows:
   version: 2
