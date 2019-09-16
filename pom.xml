@@ -37,12 +37,22 @@
         <jre.version>1.8</jre.version>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <commons-lang3.version>3.9</commons-lang3.version>
-        <commons-io.version>2.6</commons-io.version>
-        <commons-logging.version>1.2</commons-logging.version>
+        <commons.lang3.version>3.9</commons.lang3.version>
+        <commons.io.version>2.5</commons.io.version>
+        <commons.logging.version>1.2</commons.logging.version>
         <gson.version>2.8.5</gson.version>
         <guava.version>28.0-jre</guava.version>
-        <http-components.version>4.5.9</http-components.version>
+        <http.components.version>4.5.9</http.components.version>
+        <http.core.version>4.4.11</http.core.version>
+        <bouncycastle.plugin.version>1.0.0</bouncycastle.plugin.version>
+        <javadoc.plugin.version>3.1.0</javadoc.plugin.version>
+        <source.plugin.version>3.1.0</source.plugin.version>
+        <version.plugin.plugin>3.6.0</version.plugin.plugin>
+        <maven.clean.plugin.version>3.1.0</maven.clean.plugin.version>
+        <maven.resource.plugin.version>3.1.0</maven.resource.plugin.version>
+        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+        <maven.dependency.plugin.version>3.1.1</maven.dependency.plugin.version>
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
     </properties>
     <repositories>
         <repository>
@@ -58,19 +68,19 @@
                 <updatePolicy>never</updatePolicy>
             </releases>
         </repository>
-        <repository>
-            <id>Search-Maven</id>
-            <name>Search Maven</name>
-            <layout>default</layout>
-            <url>http://search.maven.org/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-        </repository>
+<!--        <repository>-->
+<!--            <id>Search-Maven</id>-->
+<!--            <name>Search Maven</name>-->
+<!--            <layout>default</layout>-->
+<!--            <url>http://search.maven.org/</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>true</enabled>-->
+<!--            </snapshots>-->
+<!--            <releases>-->
+<!--                <enabled>true</enabled>-->
+<!--                <updatePolicy>never</updatePolicy>-->
+<!--            </releases>-->
+<!--        </repository>-->
         <repository>
             <id>Maven-Central</id>
             <name>Maven Central</name>
@@ -103,38 +113,39 @@
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>${commons-logging.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
+            <version>${commons.logging.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
+            <version>${commons.lang3.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
+            <scope>provided</scope>
         </dependency>
         <!-- Apache HttpClient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${http.core.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>${http-components.version}</version>
+            <version>${http.components.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>
-            <version>${http-components.version}</version>
+            <version>${http.components.version}</version>
+            <scope>provided</scope>
         </dependency>
         <!-- Testing Libraries  -->
         <dependency>
@@ -143,26 +154,96 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <!-- For Build -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+            <scope>compile</scope>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven</groupId>-->
+<!--            <artifactId>maven-model</artifactId>-->
+<!--            <version>3.0</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven</groupId>-->
+<!--            <artifactId>maven-core</artifactId>-->
+<!--            <version>3.0</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven</groupId>-->
+<!--            <artifactId>maven-plugin-api</artifactId>-->
+<!--            <version>3.0</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven.shared</groupId>-->
+<!--            <artifactId>maven-filtering</artifactId>-->
+<!--            <version>3.1.1</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.codehaus.plexus</groupId>-->
+<!--            <artifactId>plexus-utils</artifactId>-->
+<!--            <version>3.1.0</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.codehaus.plexus</groupId>-->
+<!--            <artifactId>plexus-interpolation</artifactId>-->
+<!--            <version>1.24</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven.plugin-tools</groupId>-->
+<!--            <artifactId>maven-plugin-annotations</artifactId>-->
+<!--            <version>3.5.1</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
     </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.9</version>
+                <version>${maven.surefire.plugin.version}</version>
                 <configuration>
                     <argLine>-Djavax.net.debug=all</argLine>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>${version.plugin.plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${maven.clean.plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>${maven.dependency.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>analyze</id>
+                        <goals>
+                            <goal>analyze-only</goal>
+                        </goals>
+                        <configuration>
+                            <failOnWarning>true</failOnWarning>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <source>${jre.version}</source>
                     <target>${jre.version}</target>
@@ -173,7 +254,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>${javadoc.plugin.version}</version>
                 <configuration>
                     <excludePackageNames>*.transform</excludePackageNames>
                     <minmemory>128m</minmemory>
@@ -183,11 +264,67 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.5</version>
+                <version>${maven.resource.plugin.version}</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>deploy</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.deciphernow</groupId>
+                        <artifactId>bouncycastle-maven-plugin</artifactId>
+                        <version>${bouncycastle.plugin.version}</version>
+                        <configuration>
+                            <passphrase>${env.PGP_PASSPHRASE}</passphrase>
+                            <rings>${env.PGP_RINGS}</rings>
+                            <userId>${env.PGP_USER_ID}</userId>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${javadoc.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${source.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

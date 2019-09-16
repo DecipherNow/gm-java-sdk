@@ -10,6 +10,7 @@ import com.deciphernow.greymatter.data.http.client.impl.SSLTrustManagerHelper;
 import com.deciphernow.greymatter.data.http.client.models.*;
 import com.deciphernow.greymatter.data.http.client.requests.*;
 import com.deciphernow.greymatter.data.http.client.settings.GreyMatterClientConfig;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -45,7 +46,6 @@ public class GreyMatterDataClientTest {
 
     @AfterClass
     public static void cleanup() throws Exception {
-//        /**
         GreyMatterDataListRequest request = new GreyMatterDataListRequest(config, worldFolder);
         GreyMatterDataListResponseHandler handler = new GreyMatterDataListResponseHandler();
 
@@ -62,8 +62,9 @@ public class GreyMatterDataClientTest {
             ArrayList<ResponseMetadata> response1 = httpClient.execute(deleteRequest);
             System.out.println("Deleted: " + response1.get(0).getName() + " -- OID: " + response1.get(0).getOid());
         }
-        //*/
         try {
+            File f = new File("./src/test/resources/tmp/");
+            FileUtils.deleteDirectory(f);
             dataClient.shutDown();
         } catch (IOException e) {
             throw new ClientException(e);
@@ -156,7 +157,13 @@ public class GreyMatterDataClientTest {
         Assert.assertEquals(200, response.getStatusLine().getStatusCode());
         HttpEntity entity = response.getEntity();
 
-        File targetFile = new File("./src/test/resources/image.jpg");
+        File directory = new File("./src/test/resources/tmp");
+
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        File targetFile = new File("./src/test/resources/tmp/image.jpg");
         OutputStream outStream = new FileOutputStream(targetFile);
 
         byte[] buffer = new byte[8 * 1024];

@@ -11,14 +11,16 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - run: mvn -version
+      - run: rm -rf ~/.m2
       - restore_cache:
           keys:
-            - cache-{{ .Branch }}-{{ .Revision }}
-            - cache-{{ .Branch }}
-            - cache
+            - cache-{{ .Branch }}-{{ .Revision }}-{{ checksum "pom.xml" }}
+            - cache-{{ .Branch }}-{{ checksum "pom.xml" }}
+            - cache-{{ checksum "pom.xml" }}
       - run: mvn dependency:go-offline
       - save_cache:
-          key: cache-{{ .Branch }}-{{ .Revision }}
+          key: cache-{{ .Branch }}-{{ .Revision }}-{{ checksum "pom.xml" }}
           paths:
             - "~/.m2"
   build:
@@ -27,19 +29,19 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-{{ .Branch }}-{{ .Revision }}
-            - cache-{{ .Branch }}
-            - cache
-      - run: mvn verify
+            - cache-{{ .Branch }}-{{ .Revision }}-{{ checksum "pom.xml" }}
+            - cache-{{ .Branch }}-{{ checksum "pom.xml" }}
+            - cache-{{ checksum "pom.xml" }}
+      - run: mvn verify -DskipTests=true
   deploy:
     <<: *defaults
     steps:
       - checkout
       - restore_cache:
           keys:
-            - cache-{{ .Branch }}-{{ .Revision }}
-            - cache-{{ .Branch }}
-            - cache
+            - cache-{{ .Branch }}-{{ .Revision }}-{{ checksum "pom.xml" }}
+            - cache-{{ .Branch }}-{{ checksum "pom.xml" }}
+            - cache-{{ checksum "pom.xml" }}
       - run: PGP_RINGS="$(echo ${PGP_RINGS_ENCODED} | base64 --decode)" mvn deploy -P deploy -s settings.xml
 workflows:
   version: 2
