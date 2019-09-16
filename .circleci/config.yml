@@ -4,9 +4,7 @@ defaults: &defaults
   machine: true
   working_directory: ~/deciphernow/gm-data-sdk
   parallelism: 1
-#  shell: /bin/bash --login
-  docker:
-    - image: circleci/openjdk:8-jdk-stretch
+  shell: /bin/bash --login
 
 jobs:
   cache:
