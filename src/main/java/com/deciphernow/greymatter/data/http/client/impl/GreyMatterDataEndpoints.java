@@ -2,6 +2,7 @@ package com.deciphernow.greymatter.data.http.client.impl;
 
 /**
  * Endpoints that can be used
+ * <ul>
  * <li>{@link #DERIVED}</li>
  * <li>{@link #HISTORY}</li>
  * <li>{@link #LIST}</li>
@@ -12,6 +13,7 @@ package com.deciphernow.greymatter.data.http.client.impl;
  * <li>{@link #SHOW}</li>
  * <li>{@link #STREAM}</li>
  * <li>{@link #WRITE}</li>
+ * </ul>
  */
 
 public enum GreyMatterDataEndpoints {
@@ -21,11 +23,13 @@ public enum GreyMatterDataEndpoints {
      */
     DERIVED("/derived"),
     /**
-     * returns every event associated with a given Object ID. Request structure /history/{oid}/{path}/?queryString1={queryValue1}
+     * returns every event associated with a given Object ID. Request structure
+     * {@code /history/{oid}/{path}/?queryString1={queryValue1}}
      */
     HISTORY("/history"),
     /**
-     * returns most recent event for each child Object ID associated with provided Object ID. Request structure /list/{oid}/{path}/?queryString1={queryValue1}&?queryString2={queryValue2}
+     * returns most recent event for each child Object ID associated with provided Object ID. Request structure
+     * {@code /list/{oid}/{path}/?queryString1={queryValue1}&?queryString2={queryValue2}}
      */
     LIST("/list"),
     /**
@@ -33,11 +37,13 @@ public enum GreyMatterDataEndpoints {
      */
     MACROS("/macros"),
     /**
-     * an array of Event Objects related to the Object ID. Request structure /notifications/{oid}/{path}
+     * an array of Event Objects related to the Object ID. Request structure
+     * {@code /notifications/{oid}/{path}}
      */
     NOTIFICATIONS("/notifications"),
     /**
-     * returns latest event for an Object ID. Request structure /props/{oid}/{path}/?queryString1={queryValue1}
+     * returns latest event for an Object ID. Request structure
+     * {@code /props/{oid}/{path}/?queryString1={queryValue1}}
      */
     PROPS("/props"),
     /**
@@ -45,7 +51,8 @@ public enum GreyMatterDataEndpoints {
      */
     READ("/read"),
     /**
-     * returns a stream of file bytes wrapped in an iFrame with associated security banner. Request structure /history/{oid}/{path}/?queryString1={queryValue1}&?queryString2={queryValue2}
+     * returns a stream of file bytes wrapped in an iFrame with associated security banner. Request structure
+     * {@code /history/{oid}/{path}/?queryString1={queryValue1}&?queryString2={queryValue2}}
      */
     SHOW("/show"),
     /**

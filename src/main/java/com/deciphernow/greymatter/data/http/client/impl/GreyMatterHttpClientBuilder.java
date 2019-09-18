@@ -117,6 +117,9 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Assigns {@link HttpRequestExecutor} instance.
+     *
+     * @param requestExec Http request executor
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setRequestExecutor(final HttpRequestExecutor requestExec) {
         this.requestExec = requestExec;
@@ -131,6 +134,8 @@ public class GreyMatterHttpClientBuilder {
      *org.apache.http.conn.socket.LayeredConnectionSocketFactory)} methods.
      * </p>
      *
+     * @param hostnameVerifier X509HostnameVerifier
+     * @return GreyMatterHttpClientBuilder
      * @deprecated (4.4)
      */
     @Deprecated
@@ -147,6 +152,8 @@ public class GreyMatterHttpClientBuilder {
      *org.apache.http.conn.socket.LayeredConnectionSocketFactory)} methods.
      * </p>
      *
+     * @param hostnameVerifier X509HostnameVerifier
+     * @return GreyMatterHttpClientBuilder
      * @since 4.4
      */
     public final GreyMatterHttpClientBuilder setSSLHostnameVerifier(final HostnameVerifier hostnameVerifier) {
@@ -158,6 +165,8 @@ public class GreyMatterHttpClientBuilder {
      * Assigns file containing public suffix matcher. Instances of this class can be created
      * with {@link org.apache.http.conn.util.PublicSuffixMatcherLoader}.
      *
+     * @param publicSuffixMatcher PublicSuffixMatcher
+     * @return GreyMatterHttpClientBuilder
      * @see org.apache.http.conn.util.PublicSuffixMatcher
      * @see org.apache.http.conn.util.PublicSuffixMatcherLoader
      * @since 4.4
@@ -175,6 +184,8 @@ public class GreyMatterHttpClientBuilder {
      *org.apache.http.conn.socket.LayeredConnectionSocketFactory)} methods.
      * </p>
      *
+     * @param sslcontext SSLContext
+     * @return GreyMatterHttpClientBuilder
      * @deprecated (4.5) use {@link #setSSLContext(SSLContext)}
      */
     @Deprecated
@@ -189,8 +200,11 @@ public class GreyMatterHttpClientBuilder {
      *org.apache.http.conn.HttpClientConnectionManager)} and the {@link #setSSLSocketFactory(
      *org.apache.http.conn.socket.LayeredConnectionSocketFactory)} methods.
      * </p>
+     *
+     * @param SSLContext SSLContext
+     * @return GreyMatterHttpClientBuilder
      */
-    public final GreyMatterHttpClientBuilder setSSLContext(final SSLContext sslContext) {
+    public final GreyMatterHttpClientBuilder setSSLContext(final SSLContext SSLContext) {
         this.sslContext = sslContext;
         return this;
     }
@@ -201,6 +215,9 @@ public class GreyMatterHttpClientBuilder {
      * Please note this value can be overridden by the {@link #setConnectionManager(
      *org.apache.http.conn.HttpClientConnectionManager)} method.
      * </p>
+     *
+     * @param sslSocketFactory LayeredConnectionSocketFactory
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setSSLSocketFactory(
             final LayeredConnectionSocketFactory sslSocketFactory) {
@@ -214,6 +231,9 @@ public class GreyMatterHttpClientBuilder {
      * Please note this value can be overridden by the {@link #setConnectionManager(
      *org.apache.http.conn.HttpClientConnectionManager)} method.
      * </p>
+     *
+     * @param maxConnTotal integer value for maximum total connections
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setMaxConnTotal(final int maxConnTotal) {
         this.maxConnTotal = maxConnTotal;
@@ -226,6 +246,9 @@ public class GreyMatterHttpClientBuilder {
      * Please note this value can be overridden by the {@link #setConnectionManager(
      *org.apache.http.conn.HttpClientConnectionManager)} method.
      * </p>
+     *
+     * @param maxConnPerRoute integer value for maximum connections per route
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setMaxConnPerRoute(final int maxConnPerRoute) {
         this.maxConnPerRoute = maxConnPerRoute;
@@ -238,6 +261,9 @@ public class GreyMatterHttpClientBuilder {
      * Please note this value can be overridden by the {@link #setConnectionManager(
      *org.apache.http.conn.HttpClientConnectionManager)} method.
      * </p>
+     *
+     * @param config SocketConfig
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setDefaultSocketConfig(final SocketConfig config) {
         this.defaultSocketConfig = config;
@@ -250,6 +276,9 @@ public class GreyMatterHttpClientBuilder {
      * Please note this value can be overridden by the {@link #setConnectionManager(
      *org.apache.http.conn.HttpClientConnectionManager)} method.
      * </p>
+     *
+     * @param config ConnectionConfig
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setDefaultConnectionConfig(final ConnectionConfig config) {
         this.defaultConnectionConfig = config;
@@ -263,6 +292,9 @@ public class GreyMatterHttpClientBuilder {
      *org.apache.http.conn.HttpClientConnectionManager)} method.
      * </p>
      *
+     * @param connTimeToLive         long
+     * @param connTimeToLiveTimeUnit TimeUnit
+     * @return GreyMatterHttpClientBuilder
      * @since 4.4
      */
     public final GreyMatterHttpClientBuilder setConnectionTimeToLive(final long connTimeToLive, final TimeUnit connTimeToLiveTimeUnit) {
@@ -273,6 +305,9 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Assigns {@link HttpClientConnectionManager} instance.
+     *
+     * @param connManager HttpClientConnectionManager
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setConnectionManager(
             final HttpClientConnectionManager connManager) {
@@ -291,6 +326,7 @@ public class GreyMatterHttpClientBuilder {
      *
      * @param shared defines whether or not the connection manager can be shared
      *               by multiple clients.
+     * @return GreyMatterHttpClientBuilder
      * @since 4.4
      */
     public final GreyMatterHttpClientBuilder setConnectionManagerShared(
@@ -301,6 +337,9 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Assigns {@link ConnectionReuseStrategy} instance.
+     *
+     * @param reuseStrategy ConnectionReuseStrategy
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setConnectionReuseStrategy(
             final ConnectionReuseStrategy reuseStrategy) {
@@ -310,6 +349,9 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Assigns {@link ConnectionKeepAliveStrategy} instance.
+     *
+     * @param keepAliveStrategy ConnectionKeepAliveStrategy
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setKeepAliveStrategy(
             final ConnectionKeepAliveStrategy keepAliveStrategy) {
@@ -320,6 +362,9 @@ public class GreyMatterHttpClientBuilder {
     /**
      * Assigns {@link AuthenticationStrategy} instance for target
      * host authentication.
+     *
+     * @param targetAuthStrategy AuthenticationStrategy
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setTargetAuthenticationStrategy(
             final AuthenticationStrategy targetAuthStrategy) {
@@ -330,6 +375,9 @@ public class GreyMatterHttpClientBuilder {
     /**
      * Assigns {@link AuthenticationStrategy} instance for proxy
      * authentication.
+     *
+     * @param proxyAuthStrategy AuthenticationStrategy
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setProxyAuthenticationStrategy(
             final AuthenticationStrategy proxyAuthStrategy) {
@@ -343,6 +391,9 @@ public class GreyMatterHttpClientBuilder {
      * Please note this value can be overridden by the {@link #disableConnectionState()}
      * method.
      * </p>
+     *
+     * @param userTokenHandler UserTokenHandler
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setUserTokenHandler(final UserTokenHandler userTokenHandler) {
         this.userTokenHandler = userTokenHandler;
@@ -351,6 +402,8 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Disables connection state tracking.
+     *
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder disableConnectionState() {
         connectionStateDisabled = true;
@@ -359,6 +412,9 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Assigns {@link SchemePortResolver} instance.
+     *
+     * @param schemePortResolver SchemePortResolver
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setSchemePortResolver(
             final SchemePortResolver schemePortResolver) {
@@ -372,6 +428,9 @@ public class GreyMatterHttpClientBuilder {
      * Please note this value can be overridden by the {@link #setHttpProcessor(
      *org.apache.http.protocol.HttpProcessor)} method.
      * </p>
+     *
+     * @param userAgent User-Agent
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setUserAgent(final String userAgent) {
         this.userAgent = userAgent;
@@ -384,6 +443,9 @@ public class GreyMatterHttpClientBuilder {
      * Please note this value can be overridden by the {@link #setHttpProcessor(
      *org.apache.http.protocol.HttpProcessor)} method.
      * </p>
+     *
+     * @param defaultHeaders Collection of headers
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setDefaultHeaders(final Collection<? extends Header> defaultHeaders) {
         this.defaultHeaders = defaultHeaders;
@@ -396,6 +458,9 @@ public class GreyMatterHttpClientBuilder {
      * Please note this value can be overridden by the {@link #setHttpProcessor(
      *org.apache.http.protocol.HttpProcessor)} method.
      * </p>
+     *
+     * @param itcp HttpResponseInterceptor
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder addInterceptorFirst(final HttpResponseInterceptor itcp) {
         if (itcp == null) {
@@ -414,6 +479,9 @@ public class GreyMatterHttpClientBuilder {
      * Please note this value can be overridden by the {@link #setHttpProcessor(
      *org.apache.http.protocol.HttpProcessor)} method.
      * </p>
+     *
+     * @param itcp HttpResponseInterceptor
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder addInterceptorLast(final HttpResponseInterceptor itcp) {
         if (itcp == null) {
@@ -431,6 +499,9 @@ public class GreyMatterHttpClientBuilder {
      * <p>
      * Please note this value can be overridden by the {@link #setHttpProcessor(
      *org.apache.http.protocol.HttpProcessor)} method.
+     *
+     * @param itcp HttpRequestInterceptor
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder addInterceptorFirst(final HttpRequestInterceptor itcp) {
         if (itcp == null) {
@@ -448,6 +519,9 @@ public class GreyMatterHttpClientBuilder {
      * <p>
      * Please note this value can be overridden by the {@link #setHttpProcessor(
      *org.apache.http.protocol.HttpProcessor)} method.
+     *
+     * @param itcp HttpRequestInterceptor
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder addInterceptorLast(final HttpRequestInterceptor itcp) {
         if (itcp == null) {
@@ -465,6 +539,9 @@ public class GreyMatterHttpClientBuilder {
      * <p>
      * Please note this value can be overridden by the {@link #setHttpProcessor(
      *org.apache.http.protocol.HttpProcessor)} method.
+     * </p>
+     *
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder disableCookieManagement() {
         this.cookieManagementDisabled = true;
@@ -476,6 +553,9 @@ public class GreyMatterHttpClientBuilder {
      * <p>
      * Please note this value can be overridden by the {@link #setHttpProcessor(
      *org.apache.http.protocol.HttpProcessor)} method.
+     * </p>
+     *
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder disableContentCompression() {
         contentCompressionDisabled = true;
@@ -487,6 +567,9 @@ public class GreyMatterHttpClientBuilder {
      * <p>
      * Please note this value can be overridden by the {@link #setHttpProcessor(
      *org.apache.http.protocol.HttpProcessor)} method.
+     * </p>
+     *
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder disableAuthCaching() {
         this.authCachingDisabled = true;
@@ -495,6 +578,9 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Assigns {@link HttpProcessor} instance.
+     *
+     * @param httpprocessor HttpProcessor
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setHttpProcessor(final HttpProcessor httpprocessor) {
         this.httpprocessor = httpprocessor;
@@ -505,6 +591,9 @@ public class GreyMatterHttpClientBuilder {
      * Assigns {@link DnsResolver} instance.
      * <p>
      * Please note this value can be overridden by the {@link #setConnectionManager(HttpClientConnectionManager)} method.
+     *
+     * @param dnsResolver DnsResolver
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setDnsResolver(final DnsResolver dnsResolver) {
         this.dnsResolver = dnsResolver;
@@ -516,6 +605,9 @@ public class GreyMatterHttpClientBuilder {
      * <p>
      * Please note this value can be overridden by the {@link #disableAutomaticRetries()}
      * method.
+     *
+     * @param retryHandler HttpRequestRetryHandler
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setRetryHandler(final HttpRequestRetryHandler retryHandler) {
         this.retryHandler = retryHandler;
@@ -524,6 +616,7 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Disables automatic request recovery and re-execution.
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder disableAutomaticRetries() {
         automaticRetriesDisabled = true;
@@ -535,6 +628,10 @@ public class GreyMatterHttpClientBuilder {
      * <p>
      * Please note this value can be overridden by the {@link #setRoutePlanner(
      *org.apache.http.conn.routing.HttpRoutePlanner)} method.
+     * </p>
+     *
+     * @param proxy HttpHost
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setProxy(final HttpHost proxy) {
         this.proxy = proxy;
@@ -543,6 +640,9 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Assigns {@link HttpRoutePlanner} instance.
+     *
+     * @param routePlanner HttpRoutePlanner
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setRoutePlanner(final HttpRoutePlanner routePlanner) {
         this.routePlanner = routePlanner;
@@ -555,7 +655,9 @@ public class GreyMatterHttpClientBuilder {
      * Please note this value can be overridden by the {@link #disableRedirectHandling()}
      * method.
      * </p>
-     * `
+     *
+     * @param redirectStrategy RedirectStrategys
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setRedirectStrategy(final RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
@@ -564,6 +666,8 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Disables automatic redirect handling.
+     *
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder disableRedirectHandling() {
         redirectHandlingDisabled = true;
@@ -572,6 +676,9 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Assigns {@link ConnectionBackoffStrategy} instance.
+     *
+     * @param connectionBackoffStrategy ConnectionBackoffStrategy
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setConnectionBackoffStrategy(
             final ConnectionBackoffStrategy connectionBackoffStrategy) {
@@ -581,6 +688,9 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Assigns {@link BackoffManager} instance.
+     *
+     * @param backoffManager BackoffManager
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setBackoffManager(final BackoffManager backoffManager) {
         this.backoffManager = backoffManager;
@@ -589,6 +699,9 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Assigns {@link ServiceUnavailableRetryStrategy} instance.
+     *
+     * @param serviceUnavailStrategy ServiceUnavailableRetryStrategy
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setServiceUnavailableRetryStrategy(
             final ServiceUnavailableRetryStrategy serviceUnavailStrategy) {
@@ -599,6 +712,9 @@ public class GreyMatterHttpClientBuilder {
     /**
      * Assigns default {@link CookieStore} instance which will be used for
      * request execution if not explicitly set in the client execution context.
+     *
+     * @param cookieStore CookieStore
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setDefaultCookieStore(final CookieStore cookieStore) {
         this.cookieStore = cookieStore;
@@ -609,6 +725,9 @@ public class GreyMatterHttpClientBuilder {
      * Assigns default {@link CredentialsProvider} instance which will be used
      * for request execution if not explicitly set in the client execution
      * context.
+     *
+     * @param credentialsProvider CredentialsProvider
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setDefaultCredentialsProvider(
             final CredentialsProvider credentialsProvider) {
@@ -620,6 +739,9 @@ public class GreyMatterHttpClientBuilder {
      * Assigns default {@link org.apache.http.auth.AuthScheme} registry which will
      * be used for request execution if not explicitly set in the client execution
      * context.
+     *
+     * @param authSchemeRegistry collection of {@link org.apache.http.auth.AuthSchemeProvider} in {@link org.apache.http.config.Lookup}
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setDefaultAuthSchemeRegistry(
             final Lookup<AuthSchemeProvider> authSchemeRegistry) {
@@ -632,6 +754,8 @@ public class GreyMatterHttpClientBuilder {
      * be used for request execution if not explicitly set in the client execution
      * context.
      *
+     * @param cookieSpecRegistry collection of {@link org.apache.http.cookie.CookieSpecProvider} in {@link org.apache.http.config.Lookup}
+     * @return GreyMatterHttpClientBuilder
      * @see CookieSpecRegistries
      */
     public final GreyMatterHttpClientBuilder setDefaultCookieSpecRegistry(
@@ -644,6 +768,9 @@ public class GreyMatterHttpClientBuilder {
     /**
      * Assigns a map of {@link org.apache.http.client.entity.InputStreamFactory}s
      * to be used for automatic content decompression.
+     *
+     * @param contentDecoderMap map of InputStreamFactory
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setContentDecoderRegistry(
             final Map<String, InputStreamFactory> contentDecoderMap) {
@@ -655,6 +782,9 @@ public class GreyMatterHttpClientBuilder {
      * Assigns default {@link RequestConfig} instance which will be used
      * for request execution if not explicitly set in the client execution
      * context.
+     *
+     * @param config RequestConfig
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder setDefaultRequestConfig(final RequestConfig config) {
         this.defaultRequestConfig = config;
@@ -664,6 +794,8 @@ public class GreyMatterHttpClientBuilder {
     /**
      * Use system properties when creating and configuring default
      * implementations.
+     *
+     * @return GreyMatterHttpClientBuilder
      */
     public final GreyMatterHttpClientBuilder useSystemProperties() {
         this.systemProperties = true;
@@ -682,7 +814,7 @@ public class GreyMatterHttpClientBuilder {
      * <p>
      * Please note this method may not be used when the instance of HttpClient is created
      * inside an EJB container.
-     *
+     * @return GreyMatterHttpClientBuilder
      * @see #setConnectionManagerShared(boolean)
      * @see org.apache.http.conn.HttpClientConnectionManager#closeExpiredConnections()
      * @since 4.4
@@ -709,6 +841,7 @@ public class GreyMatterHttpClientBuilder {
      *                        in the connection pool. Connections whose inactivity period exceeds this value will
      *                        get closed and evicted from the pool.
      * @param maxIdleTimeUnit time unit for the above parameter.
+     * @return GreyMatterHttpClientBuilder
      * @see #setConnectionManagerShared(boolean)
      * @see org.apache.http.conn.HttpClientConnectionManager#closeExpiredConnections()
      * @since 4.4
@@ -736,6 +869,7 @@ public class GreyMatterHttpClientBuilder {
      *                        in the connection pool. Connections whose inactivity period exceeds this value will
      *                        get closed and evicted from the pool.
      * @param maxIdleTimeUnit time unit for the above parameter.
+     * @return GreyMatterHttpClientBuilder
      * @see #setConnectionManagerShared(boolean)
      * @see org.apache.http.conn.HttpClientConnectionManager#closeExpiredConnections()
      * @since 4.4
@@ -749,7 +883,7 @@ public class GreyMatterHttpClientBuilder {
 
     /**
      * Disables the default user agent set by this builder if none has been provided by the user.
-     *
+     * @return GreyMatterHttpClientBuilder
      * @since 4.5.7
      */
     public final GreyMatterHttpClientBuilder disableDefaultUserAgent() {
@@ -765,7 +899,15 @@ public class GreyMatterHttpClientBuilder {
      * <p>
      * For internal use.
      * </p>
-     *
+     * @param requestExec HttpRequestExecutor
+     * @param connManager HttpClientConnectionManager
+     * @param reuseStrategy ConnectionReuseStrategy
+     * @param keepAliveStrategy ConnectionKeepAliveStrategy
+     * @param proxyHttpProcessor HttpProcessor
+     * @param targetAuthStrategy AuthenticationStrategy
+     * @param proxyAuthStrategy AuthenticationStrategy
+     * @param userTokenHandler UserTokenHandler
+     * @return ClientExecChain
      * @since 4.4
      */
     protected ClientExecChain createMainExec(
