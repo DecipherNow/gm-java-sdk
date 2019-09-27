@@ -18,11 +18,11 @@
     <distributionManagement>
         <snapshotRepository>
             <id>decipher</id>
-            <url>https://nexus.production.deciphernow.com/repository/maven-releases/</url>
+            <url>https://nexus.production.deciphernow.com/repository/maven-snapshots/</url>
         </snapshotRepository>
         <repository>
             <id>decipher</id>
-            <url>https://nexus.production.deciphernow.com/repository/maven-snapshots/</url>
+            <url>https://nexus.production.deciphernow.com/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
     <developers>
