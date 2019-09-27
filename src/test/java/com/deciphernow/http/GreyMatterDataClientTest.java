@@ -102,7 +102,7 @@ public class GreyMatterDataClientTest {
 
     @Test
     public void performClientUploadSmallRequest() throws Exception {
-        InputStream stream = new FileInputStream(new File(("./src/test/resources/sample.txt")));
+        InputStream stream = new FileInputStream(new File("./src/test/resources/sample.txt"));
         String name = "sample.txt";
         String action = Action.CREATE;
         String mime = "plain/text";
