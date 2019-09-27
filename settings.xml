@@ -14,8 +14,8 @@
 <settings>
     <servers>
         <server>
-            <id>ossrh</id>
-            <username>${env.NEXUS_USERNAME}</username>
+            <id>decipher</id>
+            <username>${env.NEXUS_USER}</username>
             <password>${env.NEXUS_PASSWORD}</password>
         </server>
     </servers>

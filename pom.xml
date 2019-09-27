@@ -231,25 +231,25 @@
             <id>deploy</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>com.deciphernow</groupId>
-                        <artifactId>bouncycastle-maven-plugin</artifactId>
-                        <version>${bouncycastle.plugin.version}</version>
-                        <configuration>
-                            <passphrase>${env.PGP_PASSPHRASE}</passphrase>
-                            <rings>${env.PGP_RINGS}</rings>
-                            <userId>${env.PGP_USER_ID}</userId>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>com.deciphernow</groupId>-->
+<!--                        <artifactId>bouncycastle-maven-plugin</artifactId>-->
+<!--                        <version>${bouncycastle.plugin.version}</version>-->
+<!--                        <configuration>-->
+<!--                            <passphrase>${env.PGP_PASSPHRASE}</passphrase>-->
+<!--                            <rings>${env.PGP_RINGS}</rings>-->
+<!--                            <userId>${env.PGP_USER_ID}</userId>-->
+<!--                        </configuration>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <id>sign-artifacts</id>-->
+<!--                                <phase>verify</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>sign</goal>-->
+<!--                                </goals>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
 <!--                    <plugin>-->
 <!--                        <groupId>org.apache.maven.plugins</groupId>-->
 <!--                        <artifactId>maven-javadoc-plugin</artifactId>-->
