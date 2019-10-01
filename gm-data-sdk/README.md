@@ -25,9 +25,10 @@ public class MyClient {
 }
 ```
 
-`SSLTrustManagerHelper` class can handle `file_path` as a `String`, `File` class, or an `InputStream` for `keyStore` and `trustStore`.
+`SSLTrustManagerHelper` class can handle `file_path` as a `String`, `File` object, or an `InputStream` for `keyStore` and `trustStore`.
 
-##Use case
+## Use case
+
 #### Create a folder
 In order to create a folder inside `Grey Matter Data` user can leverage `GreyMatterDataMakeDirectoryRequest`.
 
@@ -102,7 +103,7 @@ public class MyClient {
 ```
 
 #### Stream a file
-In order to stream a file `Grey Matter Data` user can leverage `GreyMatterDataStreamRequest`.
+In order to stream a file from `Grey Matter Data` user can leverage `GreyMatterDataStreamRequest`.
 
 Example
 ```java
