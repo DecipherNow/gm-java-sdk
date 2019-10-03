@@ -101,38 +101,38 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>${commons.logging.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons.lang3.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <!-- Apache HttpClient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
             <version>${http.core.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>${http.components.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>
             <version>${http.components.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <!-- Testing Libraries  -->
         <dependency>
@@ -197,6 +197,8 @@
                     <forceJavacCompilerUse>true</forceJavacCompilerUse>
                 </configuration>
             </plugin>
+            <!-- commenting out because we do not have proper code documentation -->
+            <!-- Will be enabled once code documentation is done -->
             <!--            <plugin>-->
             <!--                <groupId>org.apache.maven.plugins</groupId>-->
             <!--                <artifactId>maven-javadoc-plugin</artifactId>-->
@@ -250,6 +252,8 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <!-- commenting out because we do not have proper code documentation -->
+                    <!-- Will be enabled once code documentation is done -->
                     <!--                    <plugin>-->
                     <!--                        <groupId>org.apache.maven.plugins</groupId>-->
                     <!--                        <artifactId>maven-javadoc-plugin</artifactId>-->
